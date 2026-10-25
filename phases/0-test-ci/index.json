@@ -7,7 +7,8 @@
       "name": "test-infra",
       "status": "completed",
       "started_at": "2026-10-25T16:30:27+0900",
-      "summary": "tests/vsm_test.h(vt_begin·vt_run·VT_CHECK·VT_CHECK_EQ_INT·vt_end, JUnit XML·escape·쓰기 실패 exit 2) · test_speed_monitor.c(SR-003_speed_151_is_mid) · Makefile test(test-results 재생성→빌드→-k 전부 실행, sh·cmd.exe 양쪽, MSYS_NO_PATHCONV export) · check_junit.py(RESULTS_DIR --expect --summary --sources) + pytest 11건 · expected_failures.txt(0건) · .gitignore · stop-verify VERIFY 교체. RED: 기대값 VSM_WARN_HIGH→ⓐ exit 1, XML 삭제→exit 2"
+      "summary": "tests/vsm_test.h(vt_begin·vt_run·VT_CHECK·VT_CHECK_EQ_INT·vt_end, JUnit XML·escape·쓰기 실패 exit 2) · test_speed_monitor.c(SR-003_speed_151_is_mid) · Makefile test(test-results 재생성→빌드→-k 전부 실행, sh·cmd.exe 양쪽, MSYS_NO_PATHCONV export) · check_junit.py(RESULTS_DIR --expect --summary --sources) + pytest 11건 · expected_failures.txt(0건) · .gitignore · stop-verify VERIFY 교체. RED: 기대값 VSM_WARN_HIGH→ⓐ exit 1, XML 삭제→exit 2",
+      "completed_at": "2026-10-25T16:45:11+0900"
     },
     {
       "step": 1,
