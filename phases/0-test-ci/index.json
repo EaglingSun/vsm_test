@@ -41,8 +41,17 @@
       "started_at": "2026-10-25T16:52:51+0900",
       "summary": ".github/workflows/test.yml(pull_request→master·workflow_dispatch · contents: read · windows-latest 20분 · checkout → gcc 캐시(키 vsm-gcc-<setup_gcc.ps1 $Sha256>) → setup_gcc.ps1 → shell cmd .\\make.cmd test → 요약 표 check_junit --summary $env:GITHUB_STEP_SUMMARY(--expect 없음) → upload-artifact junit-xml test-results/*.xml if-no-files-found error, 요약·아티팩트 if !cancelled(), action 3개 ADR SHA 고정) · tests/test_ci_workflow.py 9건(트리거 · pull_request_target·secrets 없음 · 권한 · 러너 · uses SHA = ADR 집합 · 캐시 키 = setup_gcc $Sha256 · make test step · 요약 step · 아티팩트 step). RED: checkout @v7 → test_uses_pinned_to_adr_sha FAIL · 요약 if 삭제 → test_summary_step_runs_even_after_failure FAIL, 원복 후 9/9. 로컬 재현: setup 건너뜀 exit 0 · GitHub cmd 래퍼 형태로 make 실패 exit 2 전파 · pwsh 요약 명령이 표 28줄 쓰고 exit 1(결함판 실패 8). GitHub 실제 실행은 이 step 에서 확인 불가(push·PR 금지) — PR 실행 후 확인 필요. PROPOSALS P8(persist-credentials: false)",
       "completed_at": "2026-10-25T16:56:35+0900"
+    },
+    {
+      "step": 5,
+      "name": "ci-cache-split",
+      "status": "pending"
+    },
+    {
+      "step": 6,
+      "name": "sr004-rename",
+      "status": "pending"
     }
   ],
-  "created_at": "2026-10-25T16:30:27+0900",
-  "completed_at": "2026-10-25T16:56:36+0900"
+  "created_at": "2026-10-25T16:30:27+0900"
 }

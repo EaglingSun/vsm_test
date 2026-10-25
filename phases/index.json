@@ -2,8 +2,7 @@
   "phases": [
     {
       "dir": "0-test-ci",
-      "status": "completed",
-      "completed_at": "2026-10-25T16:56:36+0900"
+      "status": "pending"
     }
   ]
 }

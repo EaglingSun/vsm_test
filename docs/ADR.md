@@ -30,10 +30,12 @@
 **Status**: Accepted
 **결정**:
 - 워크플로 `.github/workflows/test.yml`. 트리거 `pull_request`(대상 master) + `workflow_dispatch`. `permissions: contents: read`.
-- 러너 `windows-latest`. gcc 는 `setup\setup_gcc.ps1` 로 받고 `C:\Users\Public\vsm-gcc` 를 `actions/cache` 로 캐시한다(키에 setup_gcc.ps1 의 SHA256 을 넣는다).
+- 러너 `windows-latest`. gcc 는 `setup\setup_gcc.ps1` 로 받고 `C:\Users\Public\vsm-gcc` 를 actions/cache 로 캐시한다(키에 setup_gcc.ps1 의 SHA256 을 넣는다).
+- 캐시는 복원과 저장을 나눈다 — 복원(`actions/cache/restore`)은 gcc 받기 전, 저장(`actions/cache/save`)은 gcc 받은 직후 · 캐시가 없었을 때만. 이유: `actions/cache` 한 step 은 job 이 성공해야 저장한다(`post-if: success()`, v6.1.0 action.yml). 결함판 PR 은 테스트가 늘 실패하므로 한 step 방식으로는 캐시가 한 번도 저장되지 않는다(0-test-ci 리뷰 결함 1).
 - action 은 GitHub 공식 것만, 커밋 SHA 로 고정한다:
   - `actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1` (v7.0.1)
-  - `actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9` (v6.1.0)
+  - `actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9` (v6.1.0)
+  - `actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9` (v6.1.0)
   - `actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9` (v7.0.2)
 - 요약 표는 `python tests/check_junit.py test-results --summary $GITHUB_STEP_SUMMARY` 로 쓴다. 테스트가 실패해도 요약 · 아티팩트 단계는 돈다(`if: ${{ !cancelled() }}`).
 - 워크플로 구조는 로컬 pytest(`tests/test_ci_workflow.py`, PyYAML)로 검사한다. 실동작은 PR 실행으로만 확인된다.
