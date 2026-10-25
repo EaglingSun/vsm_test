@@ -8,3 +8,5 @@ test_speed_monitor::SR-010_count_follows_high_with_brake
 test_sensor_filter::SR-009_latest_after_push
 test_sensor_filter::SR-004_latest_after_wraparound
 test_sensor_filter::SR-001_sensor_value_40000
+test_diag_log::SR-011_non_numeric_returns_minus1
+test_diag_log::SR-011_empty_returns_minus1
