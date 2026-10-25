@@ -1,0 +1,11 @@
+{
+  "project": "VSM",
+  "phase": "0-test-ci",
+  "steps": [
+    { "step": 0, "name": "test-infra", "status": "pending" },
+    { "step": 1, "name": "speed-monitor-tests", "status": "pending" },
+    { "step": 2, "name": "sensor-filter-tests", "status": "pending" },
+    { "step": 3, "name": "diag-log-tests", "status": "pending" },
+    { "step": 4, "name": "ci-workflow", "status": "pending" }
+  ]
+}
