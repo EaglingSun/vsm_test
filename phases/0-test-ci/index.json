@@ -13,7 +13,9 @@
     {
       "step": 1,
       "name": "speed-monitor-tests",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-10-25T16:45:22+0900",
+      "summary": "test_speed_monitor.c 11케이스(SEC3 0·1·150 · SR-003 151·199 · SR-002 200·201·65535 · SR-010 count_per_high·count_follows_high_with_brake · SR-005 reset_clears_counter, 판정은 brake_on=false · 카운터 케이스는 sm_reset(1u) 시작) · expected_failures.txt 3건(SEC3_speed_0_is_none 실제 1=LOW · SR-002_speed_200_is_high 실제 2=MID · SR-010_count_follows_high_with_brake 199+제동이 HIGH 반환인데 카운터 0) — 예상과 동일, 통과 8 · 알려진 실패 3(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이(reset 무력화·count++ 제거·150 경계 이동) 모두 RED"
     },
     {
       "step": 2,
