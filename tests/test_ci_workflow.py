@@ -15,7 +15,9 @@ WORKFLOW = ROOT / ".github" / "workflows" / "test.yml"
 ADR = ROOT / "docs" / "ADR.md"
 SETUP_GCC = ROOT / "setup" / "setup_gcc.ps1"
 
-PINNED_USES = re.compile(r"actions/(?:checkout|cache|upload-artifact)@[0-9a-f]{40}(?![0-9a-f])")
+PINNED_USES = re.compile(
+    r"actions/(?:checkout|cache/restore|cache/save|upload-artifact)@[0-9a-f]{40}(?![0-9a-f])"
+)
 
 
 @pytest.fixture(scope="module")
@@ -73,15 +75,40 @@ def test_uses_pinned_to_adr_sha(wf):
     assert set(uses) == adr
 
 
-def test_cache_key_has_setup_gcc_sha256(steps):
+def make_test_step(steps: list[dict]) -> dict:
+    return find_step(steps, lambda s: s.get("run", "").strip() == r".\make.cmd test")
+
+
+@pytest.mark.parametrize("action", ["cache/restore", "cache/save"])
+def test_cache_key_has_setup_gcc_sha256(steps, action):
     m = re.search(r"^\$Sha256\s*=\s*'([0-9A-Fa-f]{64})'", SETUP_GCC.read_text(encoding="utf-8"), re.M)
     assert m, "setup/setup_gcc.ps1 에서 $Sha256 값을 찾지 못했다"
-    key = uses_step(steps, "cache")["with"]["key"]
+    key = uses_step(steps, action)["with"]["key"]
     assert m.group(1).lower() in key.lower()
 
 
+def test_no_combined_cache_action():
+    # actions/cache@ 한 step 은 job 이 성공해야 저장한다(post-if: success()) — 결함판 PR 에서는 저장되지 않는다
+    assert "actions/cache@" not in WORKFLOW.read_text(encoding="utf-8")
+
+
+def test_cache_save_before_make_test(steps):
+    # 테스트가 실패해도 캐시는 이미 저장돼 있어야 한다
+    save = uses_step(steps, "cache/save")
+    assert steps.index(save) < steps.index(make_test_step(steps))
+
+
+def test_cache_save_only_on_cache_miss(steps):
+    # 같은 키가 이미 있으면 저장이 실패로 끝난다 — 복원 step 이 못 찾았을 때만 저장한다
+    restore_id = uses_step(steps, "cache/restore").get("id")
+    assert restore_id, "캐시 복원 step 에 id 가 없다"
+    cond = uses_step(steps, "cache/save").get("if", "")
+    assert f"steps.{restore_id}.outputs.cache-hit" in cond
+    assert "'true'" in cond
+
+
 def test_runs_make_test(steps):
-    find_step(steps, lambda s: s.get("run", "").strip() == r".\make.cmd test")
+    make_test_step(steps)
 
 
 def test_summary_step_runs_even_after_failure(steps):

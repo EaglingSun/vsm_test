@@ -15,3 +15,4 @@
 - [ ] P8 | 0-test-ci/step4 | `.github/workflows/test.yml` checkout 에 `persist-credentials: false` 추가 | 이후 step 이 쓰지 않는 GITHUB_TOKEN 이 `.git/config` 에 남지 않게 한다 (지금은 `contents: read` 라 영향이 작다)
 - [ ] P9 | 0-test-ci/review | `.github/workflows/test.yml` 의 C 테스트 step 에 step 단위 `timeout-minutes`(예: 5) | 테스트가 멈추면 job 전체가 20분 뒤 취소(cancelled)되어 `!cancelled()` 인 요약 표 · 아티팩트 step 까지 건너뛴다 — step 시간 초과는 실패로 끝나 결과가 남는다
 - [ ] P10 | 0-test-ci/review | `tests/check_junit.py --summary` 가 결과 파일 오류가 있어도 읽힌 스위트의 표는 함께 쓰기 | 지금은 한 스위트 XML 이 없으면 요약에 오류 목록만 나와 나머지 모듈 결과를 PR 에서 볼 수 없다 (exit 2 판정은 그대로)
+- [ ] P11 | 0-test-ci/step5 | `tests/test_ci_workflow.py` 캐시 검사 강화 — 저장 step `if` 가 `!=` 비교인지 · 복원 · 저장 `path` 가 같은지 | 지금 검사는 `cache-hit` 와 `'true'` 포함만 보므로 조건을 `== 'true'` 로 뒤집어(캐시가 영영 저장되지 않음) 도 · 두 step 의 `path` 가 달라져도(복원이 늘 빗나감) 통과한다
