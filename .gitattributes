@@ -1,0 +1,4 @@
+# cmd 배치는 CRLF 가 아니면 줄이 깨진다 (chcp 65001 + LF 에서 config.bat 이 exit 1) - core.autocrlf 와 상관없이 CRLF 로 꺼낸다
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
