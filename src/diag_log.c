@@ -17,7 +17,7 @@ void dl_record(vsm_warn_t warn)
     s_history[s_idx] = (uint8_t)(code + g_diag_seq);
     s_idx++;
     g_diag_seq++;
-    if (s_idx >= (uint8_t)VSM_SAMPLE_MAX)
+    if (s_idx > (uint8_t)VSM_SAMPLE_MAX)
     {
         s_idx = 0u;
     }

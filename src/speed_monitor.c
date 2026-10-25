@@ -14,7 +14,7 @@ vsm_warn_t sm_evaluate(uint16_t speed_kph, bool brake_on)
         level = 3;
         s_over_count++;
     }
-    else if (speed_kph > VSM_SPEED_CAUTION_KPH)
+    else if (speed_kph >= VSM_SPEED_CAUTION_KPH)
     {
         level = 2;
     }
