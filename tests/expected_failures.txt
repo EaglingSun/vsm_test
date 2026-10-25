@@ -5,3 +5,6 @@
 test_speed_monitor::SEC3_speed_0_is_none
 test_speed_monitor::SR-002_speed_200_is_high
 test_speed_monitor::SR-010_count_follows_high_with_brake
+test_sensor_filter::SR-009_latest_after_push
+test_sensor_filter::SR-004_latest_after_wraparound
+test_sensor_filter::SR-001_sensor_value_40000

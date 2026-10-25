@@ -21,7 +21,9 @@
     {
       "step": 2,
       "name": "sensor-filter-tests",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-10-25T16:47:59+0900",
+      "summary": "test_sensor_filter.c 7케이스(SR-009 latest_after_push · SR-004 latest_after_wraparound · SR-001 sensor_value_40000 · SR-007 truncates·exact · SR-008 count_1·count_8, 샘플 0~32767 · count 1~8) · expected_failures.txt +3건(SR-009 실제 0 · SR-004 실제 3 · SR-001 실제 4 — 셋 다 sf_latest 가 다음에 쓸 칸=가장 오래된 값을 반환) — 예상과 동일, 전체 통과 12 · 알려진 실패 6(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이 — SR-009 만 고치면 SR-001 실제 -25536(int16_t 잘림)로 RED 유지 · 두 결함 다 고치면 7/7 통과 · 반올림·마지막 샘플 누락·7개 상한 모두 RED. 못 잡는 것: 링 크기 축소(sf_latest 만으로 판별 불가) → PROPOSALS P7"
     },
     {
       "step": 3,

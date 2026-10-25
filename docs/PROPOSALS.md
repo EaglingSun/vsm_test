@@ -11,3 +11,4 @@
 - [ ] P4 | 0-test-ci/설계 | 요구사항 보강 — 제동(brake_on) 반영 규칙 · `sm_reset(ecu_id)` 대상 구분 · `sf_average` count 범위 밖 반환값 · SR-011 부분 숫자("12abc") · 범위 초과 처리 | 코드에 동작이 있거나 경계가 모호한데 요구사항이 없다
 - [ ] P5 | 0-test-ci/설계 | `scripts/execute.py` 의 claude 호출에 `encoding="utf-8"` 지정 | cp949 기본 환경에서 한글 출력 디코딩 실패 위험 (지금은 `py -X utf8` 로 우회)
 - [ ] P6 | 0-test-ci/설계 | 데모 평균을 링 버퍼 값으로 · `dl_read_status_reg()` PC 빌드에서 차단 | 데모 avg 가 항상 45 · PC 에서 부르면 접근 위반
+- [ ] P7 | 0-test-ci/step2 | 링 버퍼의 최근 N 개를 읽는 함수(예: `sf_recent(i)`) 추가 | `sf_latest()` 만으로는 버퍼 크기를 판별할 수 없어 SR-004 「최근 8개」를 검증하지 못한다 (임시 복사본에서 링 크기를 7 로 줄인 변이가 통과함)
