@@ -13,3 +13,5 @@
 - [ ] P6 | 0-test-ci/설계 | 데모 평균을 링 버퍼 값으로 · `dl_read_status_reg()` PC 빌드에서 차단 | 데모 avg 가 항상 45 · PC 에서 부르면 접근 위반
 - [ ] P7 | 0-test-ci/step2 | 링 버퍼의 최근 N 개를 읽는 함수(예: `sf_recent(i)`) 추가 | `sf_latest()` 만으로는 버퍼 크기를 판별할 수 없어 SR-004 「최근 8개」를 검증하지 못한다 (임시 복사본에서 링 크기를 7 로 줄인 변이가 통과함)
 - [ ] P8 | 0-test-ci/step4 | `.github/workflows/test.yml` checkout 에 `persist-credentials: false` 추가 | 이후 step 이 쓰지 않는 GITHUB_TOKEN 이 `.git/config` 에 남지 않게 한다 (지금은 `contents: read` 라 영향이 작다)
+- [ ] P9 | 0-test-ci/review | `.github/workflows/test.yml` 의 C 테스트 step 에 step 단위 `timeout-minutes`(예: 5) | 테스트가 멈추면 job 전체가 20분 뒤 취소(cancelled)되어 `!cancelled()` 인 요약 표 · 아티팩트 step 까지 건너뛴다 — step 시간 초과는 실패로 끝나 결과가 남는다
+- [ ] P10 | 0-test-ci/review | `tests/check_junit.py --summary` 가 결과 파일 오류가 있어도 읽힌 스위트의 표는 함께 쓰기 | 지금은 한 스위트 XML 이 없으면 요약에 오류 목록만 나와 나머지 모듈 결과를 PR 에서 볼 수 없다 (exit 2 판정은 그대로)
