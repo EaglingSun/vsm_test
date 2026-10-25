@@ -1,0 +1,64 @@
+{
+  "project": "VSM",
+  "phase": "0-test-ci",
+  "steps": [
+    {
+      "step": 0,
+      "name": "test-infra",
+      "status": "completed",
+      "started_at": "2026-10-25T16:30:27+0900",
+      "summary": "tests/vsm_test.h(vt_begin·vt_run·VT_CHECK·VT_CHECK_EQ_INT·vt_end, JUnit XML·escape·쓰기 실패 exit 2) · test_speed_monitor.c(SR-003_speed_151_is_mid) · Makefile test(test-results 재생성→빌드→-k 전부 실행, sh·cmd.exe 양쪽, MSYS_NO_PATHCONV export) · check_junit.py(RESULTS_DIR --expect --summary --sources) + pytest 11건 · expected_failures.txt(0건) · .gitignore · stop-verify VERIFY 교체. RED: 기대값 VSM_WARN_HIGH→ⓐ exit 1, XML 삭제→exit 2",
+      "completed_at": "2026-10-25T16:45:11+0900"
+    },
+    {
+      "step": 1,
+      "name": "speed-monitor-tests",
+      "status": "completed",
+      "started_at": "2026-10-25T16:45:22+0900",
+      "summary": "test_speed_monitor.c 11케이스(SEC3 0·1·150 · SR-003 151·199 · SR-002 200·201·65535 · SR-010 count_per_high·count_follows_high_with_brake · SR-005 reset_clears_counter, 판정은 brake_on=false · 카운터 케이스는 sm_reset(1u) 시작) · expected_failures.txt 3건(SEC3_speed_0_is_none 실제 1=LOW · SR-002_speed_200_is_high 실제 2=MID · SR-010_count_follows_high_with_brake 199+제동이 HIGH 반환인데 카운터 0) — 예상과 동일, 통과 8 · 알려진 실패 3(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이(reset 무력화·count++ 제거·150 경계 이동) 모두 RED",
+      "completed_at": "2026-10-25T16:47:52+0900"
+    },
+    {
+      "step": 2,
+      "name": "sensor-filter-tests",
+      "status": "completed",
+      "started_at": "2026-10-25T16:47:59+0900",
+      "summary": "test_sensor_filter.c 7케이스(SR-009 latest_after_push · SR-004 latest_after_wraparound · SR-001 sensor_value_40000 · SR-007 truncates·exact · SR-008 count_1·count_8, 샘플 0~32767 · count 1~8) · expected_failures.txt +3건(SR-009 실제 0 · SR-004 실제 3 · SR-001 실제 4 — 셋 다 sf_latest 가 다음에 쓸 칸=가장 오래된 값을 반환) — 예상과 동일, 전체 통과 12 · 알려진 실패 6(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이 — SR-009 만 고치면 SR-001 실제 -25536(int16_t 잘림)로 RED 유지 · 두 결함 다 고치면 7/7 통과 · 반올림·마지막 샘플 누락·7개 상한 모두 RED. 못 잡는 것: 링 크기 축소(sf_latest 만으로 판별 불가) → PROPOSALS P7",
+      "completed_at": "2026-10-25T16:50:55+0900"
+    },
+    {
+      "step": 3,
+      "name": "diag-log-tests",
+      "status": "completed",
+      "started_at": "2026-10-25T16:51:01+0900",
+      "summary": "test_diag_log.c 3케이스(SR-011 non_numeric_returns_minus1 \"abc\" · empty_returns_minus1 \"\" · numeric_parses \"200\"·\"0\", dl_record·dl_read_status_reg 미호출 · SR-006 제외) · expected_failures.txt +2건(SR-011 non_numeric 실제 0 · empty 실제 0 — strtol 끝 위치 미확인) — 예상과 동일, 전체 통과 13 · 알려진 실패 8(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이 — 끝 위치 확인 수정판 3/3 통과 · 항상 -1(numeric RED) · 빈 문자열만 처리(non_numeric RED) · base 8(3건 RED)",
+      "completed_at": "2026-10-25T16:52:50+0900"
+    },
+    {
+      "step": 4,
+      "name": "ci-workflow",
+      "status": "completed",
+      "started_at": "2026-10-25T16:52:51+0900",
+      "summary": ".github/workflows/test.yml(pull_request→master·workflow_dispatch · contents: read · windows-latest 20분 · checkout → gcc 캐시(키 vsm-gcc-<setup_gcc.ps1 $Sha256>) → setup_gcc.ps1 → shell cmd .\\make.cmd test → 요약 표 check_junit --summary $env:GITHUB_STEP_SUMMARY(--expect 없음) → upload-artifact junit-xml test-results/*.xml if-no-files-found error, 요약·아티팩트 if !cancelled(), action 3개 ADR SHA 고정) · tests/test_ci_workflow.py 9건(트리거 · pull_request_target·secrets 없음 · 권한 · 러너 · uses SHA = ADR 집합 · 캐시 키 = setup_gcc $Sha256 · make test step · 요약 step · 아티팩트 step). RED: checkout @v7 → test_uses_pinned_to_adr_sha FAIL · 요약 if 삭제 → test_summary_step_runs_even_after_failure FAIL, 원복 후 9/9. 로컬 재현: setup 건너뜀 exit 0 · GitHub cmd 래퍼 형태로 make 실패 exit 2 전파 · pwsh 요약 명령이 표 28줄 쓰고 exit 1(결함판 실패 8). GitHub 실제 실행은 이 step 에서 확인 불가(push·PR 금지) — PR 실행 후 확인 필요. PROPOSALS P8(persist-credentials: false)",
+      "completed_at": "2026-10-25T16:56:35+0900"
+    },
+    {
+      "step": 5,
+      "name": "ci-cache-split",
+      "status": "completed",
+      "started_at": "2026-10-25T17:28:43+0900",
+      "summary": ".github/workflows/test.yml 캐시를 복원 · 저장으로 분리(checkout → gcc 캐시 복원 id gcc-cache actions/cache/restore@55cc834 → gcc 받기 → gcc 캐시 저장 if steps.gcc-cache.outputs.cache-hit != 'true' actions/cache/save@55cc834 → C 테스트 · 요약 표 · 아티팩트 그대로, 키 vsm-gcc-<setup_gcc $Sha256> · path 동일, actions/cache@ 제거) · tests/test_ci_workflow.py 9→13건(PINNED_USES checkout|cache/restore|cache/save|upload-artifact = ADR 집합 · 캐시 키 검사 restore/save 둘 다 · 신규 저장 step 이 make test 앞 · 저장 if 에 steps.<복원 id>.outputs.cache-hit 와 'true' · actions/cache@ 부재). 시작 시 test_uses_pinned_to_adr_sha FAIL 확인 → 13/13 · 전체 pytest 155 · ruff · 통과 13 · 알려진 실패 8 · Scope OK. RED(주입 diff 확인 후): 저장 step 을 C 테스트 뒤로 → test_cache_save_before_make_test FAIL · 저장 if 삭제 → test_cache_save_only_on_cache_miss FAIL · 예전 actions/cache@ 한 step 으로 → 6건 FAIL(uses SHA · 캐시 키 2 · actions/cache@ 부재 · 저장 순서 · 저장 if), 원복 후 13/13. 고정 SHA 의 restore/save action.yml 에서 cache-hit 출력 · post 단계 없음 확인. GitHub 실제 실행(캐시 저장 · 두 번째 실행 cache-hit)은 이 step 에서 확인 불가(push·PR 금지) — PR 실행 후 확인 필요. PROPOSALS P11(if 반전 · path 불일치 미검출)",
+      "completed_at": "2026-10-25T17:32:34+0900"
+    },
+    {
+      "step": 6,
+      "name": "sr004-rename",
+      "status": "completed",
+      "started_at": "2026-10-25T17:32:44+0900",
+      "summary": "tests/test_sensor_filter.c 케이스 SR-004_latest_after_wraparound → SR-009_latest_after_wraparound(vt_run 이름 · 함수 sr009_latest_after_wraparound · 위 주석에 「링 크기(SR-004 8칸)는 이 케이스로 검증되지 않는다 — PROPOSALS P7」, 파일 머리 주석에 SR-004 미검사 한 줄, 입력 · 기대값 · 순서 그대로) · expected_failures.txt 해당 항목만 같은 이름으로. RED: 목록 고치기 전 check_junit 이 ⓐ SR-009_latest_after_wraparound 미등록 · ⓒ SR-004_latest_after_wraparound 유령으로 exit 1 → 목록 갱신 후 통과 13 · 알려진 실패 8(sh · cmd.exe 양쪽). test_sensor_filter.xml 에 SR-004 testcase 0건 · SR-009_latest_after_wraparound 실패(실제 3). pytest 155 · ruff · Scope OK",
+      "completed_at": "2026-10-25T17:35:14+0900"
+    }
+  ],
+  "created_at": "2026-10-25T16:30:27+0900",
+  "completed_at": "2026-10-25T17:35:14+0900"
+}

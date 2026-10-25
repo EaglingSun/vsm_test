@@ -12,7 +12,7 @@
 #   2) phase 실행 중 + 메인 세션 → 통과 (phases/.running 있고 HARNESS_STEP 없음)
 #   3) 코드 변경 없음            → 통과 (phases/와 PROPOSALS.md 변경만 있으면 검증 생략)
 #   4) VERIFY 실패               → 출력 마지막 40줄과 함께 exit 2
-VERIFY="${VERIFY:-ruff check . && pytest -q}"
+VERIFY="${VERIFY:-./make.cmd test; python tests/check_junit.py test-results --expect tests/expected_failures.txt && ruff check scripts tests && python -m pytest -q}"
 
 input=$(cat)
 # 이미 Stop hook 때문에 계속 진행 중이면 무한 루프를 막기 위해 통과시킨다.
