@@ -31,7 +31,8 @@
       "name": "diag-log-tests",
       "status": "completed",
       "started_at": "2026-10-25T16:51:01+0900",
-      "summary": "test_diag_log.c 3케이스(SR-011 non_numeric_returns_minus1 \"abc\" · empty_returns_minus1 \"\" · numeric_parses \"200\"·\"0\", dl_record·dl_read_status_reg 미호출 · SR-006 제외) · expected_failures.txt +2건(SR-011 non_numeric 실제 0 · empty 실제 0 — strtol 끝 위치 미확인) — 예상과 동일, 전체 통과 13 · 알려진 실패 8(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이 — 끝 위치 확인 수정판 3/3 통과 · 항상 -1(numeric RED) · 빈 문자열만 처리(non_numeric RED) · base 8(3건 RED)"
+      "summary": "test_diag_log.c 3케이스(SR-011 non_numeric_returns_minus1 \"abc\" · empty_returns_minus1 \"\" · numeric_parses \"200\"·\"0\", dl_record·dl_read_status_reg 미호출 · SR-006 제외) · expected_failures.txt +2건(SR-011 non_numeric 실제 0 · empty 실제 0 — strtol 끝 위치 미확인) — 예상과 동일, 전체 통과 13 · 알려진 실패 8(sh·cmd.exe 양쪽). 검출력: 임시 복사본 변이 — 끝 위치 확인 수정판 3/3 통과 · 항상 -1(numeric RED) · 빈 문자열만 처리(non_numeric RED) · base 8(3건 RED)",
+      "completed_at": "2026-10-25T16:52:50+0900"
     },
     {
       "step": 4,
