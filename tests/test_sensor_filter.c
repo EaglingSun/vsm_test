@@ -5,6 +5,7 @@
  * count 는 1 ~ 8 만 쓴다 (SR-008 범위 밖의 결과는 요구사항이 정하지 않는다).
  * 링 버퍼는 초기화 함수가 없어 케이스 사이에 상태가 남는다 (ADR-002). 최근 값을 보는 케이스는
  * 자기가 넣은 값만으로 기대값이 정해지게 쓴다.
+ * SR-004(링 버퍼에 최근 8개 유지)는 검사하지 않는다 — 버퍼 내용을 읽는 함수가 없다 (PROPOSALS P7).
  */
 
 #include "vsm_test.h"
@@ -19,8 +20,10 @@ static void sr009_latest_after_push(void)
     VT_CHECK_EQ_INT(22, sf_latest());
 }
 
-/* SR-004 · SR-009: 8칸을 한 바퀴 넘겨 넣어도 최근 값은 마지막에 넣은 값 */
-static void sr004_latest_after_wraparound(void)
+/* SR-009: 8칸을 한 바퀴 넘겨 넣어도 최근 값은 마지막에 넣은 값
+ * 링 크기(SR-004 8칸)는 이 케이스로 검증되지 않는다 — 버퍼 내용을 읽는 함수가 없다 (PROPOSALS P7).
+ */
+static void sr009_latest_after_wraparound(void)
 {
     int16_t v;
 
@@ -78,7 +81,7 @@ int main(void)
 {
     vt_begin("test_sensor_filter", "test-results/test_sensor_filter.xml");
     vt_run("SR-009_latest_after_push", sr009_latest_after_push);
-    vt_run("SR-004_latest_after_wraparound", sr004_latest_after_wraparound);
+    vt_run("SR-009_latest_after_wraparound", sr009_latest_after_wraparound);
     vt_run("SR-001_sensor_value_40000", sr001_sensor_value_40000);
     vt_run("SR-007_average_truncates", sr007_average_truncates);
     vt_run("SR-007_average_exact", sr007_average_exact);

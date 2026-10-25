@@ -53,7 +53,9 @@
     {
       "step": 6,
       "name": "sr004-rename",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-10-25T17:32:44+0900",
+      "summary": "tests/test_sensor_filter.c 케이스 SR-004_latest_after_wraparound → SR-009_latest_after_wraparound(vt_run 이름 · 함수 sr009_latest_after_wraparound · 위 주석에 「링 크기(SR-004 8칸)는 이 케이스로 검증되지 않는다 — PROPOSALS P7」, 파일 머리 주석에 SR-004 미검사 한 줄, 입력 · 기대값 · 순서 그대로) · expected_failures.txt 해당 항목만 같은 이름으로. RED: 목록 고치기 전 check_junit 이 ⓐ SR-009_latest_after_wraparound 미등록 · ⓒ SR-004_latest_after_wraparound 유령으로 exit 1 → 목록 갱신 후 통과 13 · 알려진 실패 8(sh · cmd.exe 양쪽). test_sensor_filter.xml 에 SR-004 testcase 0건 · SR-009_latest_after_wraparound 실패(실제 3). pytest 155 · ruff · Scope OK"
     }
   ],
   "created_at": "2026-10-25T16:30:27+0900"
